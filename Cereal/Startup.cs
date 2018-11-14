@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Cereal.Data;
+using Microsoft.AspNetCore.Identity;
+using Cereal.Models;
 
 namespace Cereal
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; set; }
+        private IConfiguration Configuration { get; }
 
         public Startup()
         {
@@ -22,19 +24,25 @@ namespace Cereal
             builder.AddUserSecrets<Startup>();
             Configuration = builder.Build();
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddDbContext<CerealDBContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
             );
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+           options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+           );
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -42,7 +50,11 @@ namespace Cereal
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
             app.UseStaticFiles();
+
+            app.UseMvcWithDefaultRoute();
 
             app.UseMvc(routes =>
             {
