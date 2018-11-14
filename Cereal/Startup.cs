@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Cereal.Data;
 using Microsoft.AspNetCore.Identity;
+using Cereal.Models;
 
 namespace Cereal
 {
@@ -35,6 +36,10 @@ namespace Cereal
             services.AddDbContext<CerealDBContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
             );
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+           options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+           );
 
         }
 
