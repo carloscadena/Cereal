@@ -35,8 +35,12 @@ namespace Cereal
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            //services.AddDbContext<CerealDBContext>(options =>
+            //options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
+            //);
+
             services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
+            options.UseSqlServer(Configuration["ConnectionStrings:Default"])
             );
 
             services.AddTransient<IProduct,ProductService>();
