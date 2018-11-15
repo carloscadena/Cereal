@@ -111,6 +111,6 @@ namespace Cereal.Data
                 }
                 );
         }
-
+        public DbSet<Product> Product { get; set; }
     }
 }
