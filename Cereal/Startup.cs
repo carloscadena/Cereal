@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Cereal.Data;
 using Microsoft.AspNetCore.Identity;
 using Cereal.Models;
+using Cereal.Models.Interfaces;
+using Cereal.Models.Services;
 
 namespace Cereal
 {
@@ -36,6 +38,8 @@ namespace Cereal
             services.AddDbContext<CerealDBContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
             );
+
+            services.AddTransient<IProduct,ProductService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
            options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
