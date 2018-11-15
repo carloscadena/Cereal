@@ -1,5 +1,6 @@
 ﻿using Cereal.Data;
 using Cereal.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Cereal.Models.Services
 
         public async Task<Product> GetProduct(int? id)
         {
-            return await _context.Product.FirstOrDefaultAsync(Hotel => Product.ProductID == id);
+            return await _context.Product.FirstOrDefaultAsync(Product => Product.ProductID == id);
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
