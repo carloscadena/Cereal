@@ -1,6 +1,9 @@
 ﻿body {
     font-family: 'Roboto', sans-serif;
     background-color: whitesmoke;
+    background-image: url("assets/fruit_loops2.jpg");
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 
 h1 {
@@ -10,12 +13,14 @@ h1 {
 
 .container {
     align-content: center;
-    background-image: url("assets/fancy_cereal.jpg");
+    /*background-image: url("assets/fancy_cereal.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;*/
     padding: 50px;
     display: flex;
     justify-content: center;
+    margin: 0;
+    background-color: ghostwhite;
 }
 
 .navigation {
