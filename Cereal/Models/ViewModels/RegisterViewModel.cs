@@ -17,10 +17,6 @@ namespace Cereal.Models.ViewModels
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Username")]
-        public string UserName { get; set; }
-
-        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

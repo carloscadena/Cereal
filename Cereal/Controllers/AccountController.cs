@@ -35,7 +35,7 @@ namespace Cereal.Controllers
                 {
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
-                    UserName = rvm.UserName,
+                    UserName = rvm.Email,
                     Email = rvm.Email
                 };
 
@@ -51,6 +51,12 @@ namespace Cereal.Controllers
         }
 
         [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
             if (ModelState.IsValid)
@@ -59,14 +65,14 @@ namespace Cereal.Controllers
 
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "You are wrong");
                 }
             }
-            return View(lvm)
+            return View(lvm);
         }
     }
 }

@@ -34,11 +34,11 @@ namespace Cereal
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
+            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
             );
 
             services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
+           options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
            );
 
         }
