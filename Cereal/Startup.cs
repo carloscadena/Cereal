@@ -38,7 +38,7 @@ namespace Cereal
             );
 
             services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+           options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
            );
 
         }
