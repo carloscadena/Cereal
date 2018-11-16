@@ -45,8 +45,28 @@ namespace Cereal.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
                 }
+                
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login(LoginViewModel lvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "You are wrong");
+                }
+            }
+            return View(lvm)
         }
     }
 }
