@@ -1,0 +1,43 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    background-color: whitesmoke;
+}
+
+h1 {
+    font-family: 'Satisfy', cursive;
+    font-size: 65px;
+}
+
+.container {
+    align-content: center;
+    background-image: url("assets/fancy_cereal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation {
+    padding: 5px;
+}
+.account_access {
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    padding: 5px;
+    color: black;
+}
+
+a:hover {
+    color: darkred;
+}
+
+.products img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
