@@ -40,7 +40,7 @@ namespace Cereal
             //);
 
             services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
+            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
             );
 
             services.AddTransient<IProduct,ProductService>();
