@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cereal.Migrations.ApplicationDb
 {
-    public partial class newIdentity : Migration
+    public partial class initialidentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
