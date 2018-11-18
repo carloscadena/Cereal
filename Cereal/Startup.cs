@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Cereal.Models;
 using Cereal.Models.Interfaces;
 using Cereal.Models.Services;
+using Cereal.Models.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cereal
 {
@@ -53,8 +55,10 @@ namespace Cereal
             {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole
                 (UserRoles.Admin));
-            }
-            );
+                options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new EmployeeEmailRequirement()));
+            });
+
+            services.AddScoped<IAuthorizationHandler, EmployeeEmailRequirement>();
 
         }
 
