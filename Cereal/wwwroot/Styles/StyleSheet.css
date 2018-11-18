@@ -1,7 +1,7 @@
 ﻿body {
     font-family: 'Roboto', sans-serif;
     background-image: url("/assets/fruit_loops2.jpg");
-    background-size: auto;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -42,7 +42,7 @@ a:hover {
     text-align: center;
 }
 
-.products img {
+.cereal-img {
     max-width: 300px;
     max-height: 300px;
 }
