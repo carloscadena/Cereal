@@ -49,6 +49,13 @@ namespace Cereal
            options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
            );
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole
+                (UserRoles.Admin));
+            }
+            );
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

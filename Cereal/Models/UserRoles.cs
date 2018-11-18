@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cereal.Models
 {
-    public class Roles
+    public class UserRoles
     {
         public const string Member = "Member";
         public const string Admin = "Admin";
