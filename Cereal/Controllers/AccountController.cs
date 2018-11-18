@@ -57,6 +57,14 @@ namespace Cereal.Controllers
                         emailClaim
                     };
 
+                    //adding admin roles
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajelebeuf@gmail.com" || rvm.Email == "carloscadena@live.com")
+                    {
+                        await _userManager.AddToRoleAsync(user, Roles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(user, Roles.Member);
+
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
