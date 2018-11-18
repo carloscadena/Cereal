@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
 @model IEnumerable<Cereal.Models.Product>
 
 
@@ -11,5 +15,5 @@
     <p>@Html.DisplayFor(modelItem => item.Price)</p>
     <p>@Html.DisplayFor(modelItem => item.Sku)</p>
     <p>@Html.DisplayFor(modelItem => item.Description)</p>
-    <img src="@Html.DisplayFor(modelItem => item.Image)" />
+    <img class="cereal-img" src="@Html.DisplayFor(modelItem => item.Image)" />
 }

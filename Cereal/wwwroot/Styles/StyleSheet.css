@@ -1,26 +1,28 @@
 ﻿body {
     font-family: 'Roboto', sans-serif;
-    background-color: whitesmoke;
+    background-image: url("/assets/fruit_loops2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 h1 {
     font-family: 'Satisfy', cursive;
-    font-size: 65px;
+    font-size: 75px;
 }
 
 .container {
     align-content: center;
-    background-image: url("assets/fancy_cereal.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
     padding: 50px;
     display: flex;
     justify-content: center;
+    margin: 0;
+    background-color: #0BD5BE;
 }
 
 .navigation {
     padding: 5px;
 }
+
 .account_access {
     padding: 5px;
 }
@@ -29,15 +31,20 @@ a {
     text-decoration: none;
     padding: 5px;
     color: black;
+    display: inline-block;
 }
 
 a:hover {
-    color: darkred;
+    color: deeppink;
 }
 
-.products img {
-    max-width: 200px;
-    max-height: 200px;
+.products {
+    text-align: center;
+}
+
+.cereal-img {
+    max-width: 300px;
+    max-height: 300px;
 }
 
 
