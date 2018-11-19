@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cereal.Models;
 using Cereal.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cereal.Controllers
 {
+    [Authorize(Policy = "EmailPolicy")]
     public class ProductController : Controller
     {
         private readonly IProduct _product;

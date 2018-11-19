@@ -50,7 +50,7 @@ namespace Cereal.Controllers
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)
-                {                   
+                {
                     // Custom claim for full name of user
                     Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
 
