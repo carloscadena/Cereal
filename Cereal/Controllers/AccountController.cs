@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Cereal.Data;
 using Cereal.Models;
 using Cereal.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,13 @@ namespace Cereal.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ApplicationDbContext _context;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -33,6 +36,9 @@ namespace Cereal.Controllers
         {
             if (ModelState.IsValid)
             {
+                CheckUserRoleExists();
+
+
                 ApplicationUser user = new ApplicationUser()
                 {
                     FirstName = rvm.FirstName,
@@ -56,6 +62,14 @@ namespace Cereal.Controllers
                         fullNameClaim,
                         emailClaim
                     };
+
+                    //adding admin roles
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajelebeuf@gmail.com" || rvm.Email == "carloscadena@live.com")
+                    {
+                        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(user, UserRoles.Member);
 
                     await _userManager.AddClaimsAsync(user, myClaims);
 
@@ -99,6 +113,29 @@ namespace Cereal.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
+        /// checks for user role at registration
+        /// </summary>
+        public void CheckUserRoleExists()
+        {
+            if (!_context.Roles.Any())
+            {
+                List<IdentityRole> Roles = new List<IdentityRole>
+                {
+                    new IdentityRole{Name = UserRoles.Admin,
+                    NormalizedName=UserRoles.Admin.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                    new IdentityRole{Name = UserRoles.Member,
+                    NormalizedName=UserRoles.Member.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() },
+                };
+
+                foreach(var role in Roles)
+                {
+                    _context.Roles.Add(role);
+                    _context.SaveChanges();
+                }
+            }
         }
     }
 }
