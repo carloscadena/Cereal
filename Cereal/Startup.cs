@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Cereal.Models;
 using Cereal.Models.Interfaces;
 using Cereal.Models.Services;
+using Cereal.Models.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cereal
 {
@@ -36,7 +38,7 @@ namespace Cereal
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
+            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
             );
 
             //services.AddDbContext<CerealDBContext>(options =>
@@ -48,6 +50,15 @@ namespace Cereal
             services.AddDbContext<ApplicationDbContext>(options =>
            options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
            );
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole
+                (UserRoles.Admin));
+                options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new EmployeeEmailRequirement()));
+            });
+
+            services.AddScoped<IAuthorizationHandler, EmployeeEmailRequirement>();
 
         }
 

@@ -16,6 +16,9 @@ namespace Cereal.Models.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Employee Number")]
+        public string EmployeeNumber { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
