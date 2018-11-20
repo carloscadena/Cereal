@@ -38,7 +38,7 @@ namespace Cereal
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
             );
 
             //services.AddDbContext<CerealDBContext>(options =>
@@ -48,7 +48,7 @@ namespace Cereal
             services.AddTransient<IProduct,ProductService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+           options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
            );
 
             services.AddAuthorization(options =>
