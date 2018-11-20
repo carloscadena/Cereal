@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cereal.Models
 {
-    public class Cart
+    public class BasketItems
     {
         public int BasketID { get; set; }
 
@@ -13,9 +13,7 @@ namespace Cereal.Models
 
         public int Quantity { get; set; }
 
-        public bool Purchased { get; set; }
-
-        public string UsedID { get; set; }
+        public string UserID { get; set; }
 
     }
 }
