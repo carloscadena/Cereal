@@ -51,6 +51,7 @@ namespace Cereal
            options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
            );
 
+            //implementation for policies
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole
