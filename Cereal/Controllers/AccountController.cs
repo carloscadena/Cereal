@@ -18,6 +18,12 @@ namespace Cereal.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         private ApplicationDbContext _context;
 
+        /// <summary>
+        /// controls the registration and login of users
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="context"></param>
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
@@ -31,6 +37,11 @@ namespace Cereal.Controllers
             return View();
         }
 
+        /// <summary>
+        /// registers user and allows user to sign up
+        /// </summary>
+        /// <param name="rvm"></param>
+        /// <returns>view</returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
@@ -86,6 +97,11 @@ namespace Cereal.Controllers
             return View();
         }
 
+        /// <summary>
+        /// logs in a user, checks a user against email and password
+        /// </summary>
+        /// <param name="lvm"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
@@ -107,6 +123,10 @@ namespace Cereal.Controllers
             return View(lvm);
         }
 
+        /// <summary>
+        /// signs out a logged in user
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
