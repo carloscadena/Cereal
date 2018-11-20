@@ -17,22 +17,26 @@
     <div class="all_content">
         @if (SignInManager.IsSignedIn(User))
         {
-            <div class="container">
-                <div class="header">
-                    <h1>Cereal</h1>
-                    <h3>@ViewBag.MyString</h3>
-                    <nav class="navigation">
-                        <a asp-controller="Home" asp-action="Index">Home</a>
-                        <a asp-controller="Product" asp-action="Index">Products</a>
-                    </nav>
-                    <div class="account_access">
-                        <p>Hello, @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</p>
-                        <form asp-action="Logout" asp-controller="Account" method="post">
-                            <button type="submit">Logout</button>
-                        </form>
-                    </div>
+
+        <div class="container">
+            <div class="navigation">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="Product" asp-action="Index">Products</a>
+                <a asp-controller="Employee" asp-action="Index">Employee Discounts</a>
+
+                <div class="account_access">
+                    <p class="personal-greeting">Hello, @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</p>
+                    <form asp-action="Logout" asp-controller="Account" method="post">
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
                 </div>
             </div>
+            <div class="header">
+                <h1>Cereal</h1>
+                <h3 class="subTitle">@ViewBag.MyString</h3>
+
+            </div>
+        </div>
         }
 
         else
@@ -40,6 +44,7 @@
             <div class="container">
                 <div class="header">
                     <h1>Cereal</h1>
+                    <h3 class="subTitle">@ViewBag.MyString</h3>
                     <nav class="navigation">
                         <a asp-controller="Home" asp-action="Index">Home</a>
                         <a asp-controller="Product" asp-action="Index">Products</a>

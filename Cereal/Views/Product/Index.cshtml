@@ -11,9 +11,12 @@
 
 @foreach (var item in Model)
 {
+<div class="product-box">
     <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-    <p>@Html.DisplayFor(modelItem => item.Price)</p>
-    <p>@Html.DisplayFor(modelItem => item.Sku)</p>
+    <p>$@Html.DisplayFor(modelItem => item.Price)</p>
+    <p>SKU: @Html.DisplayFor(modelItem => item.Sku)</p>
     <p>@Html.DisplayFor(modelItem => item.Description)</p>
     <img class="cereal-img" src="@Html.DisplayFor(modelItem => item.Image)" />
+</div>
+    
 }
