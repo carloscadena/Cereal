@@ -1,20 +1,13 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Mike's Cereal Shack'
+## Introduction 
+We sell cereal. All the varieties you could want. Some items will only be accessible if you have a specific email or employee id (coming later). 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Claims
+* We capture Email and FullName Claims. We use the full name to display a greeting to a logged in user. We actually to determine if the user is an employee that should get discounts.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Policy
+* We have a role based policy to identify admin users.
+* We have a claim based policy to determine if a user's email contains a domain that would indicate that they are an employee. This claim allows a user access to an employee view that displays cereals on discount.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Deployed Site
+https://mikescerealshack.azurewebsites.net/
