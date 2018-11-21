@@ -16,6 +16,7 @@ namespace Cereal.Controllers
 
         public ProductController(IProduct product)
         {
+            //_basket = basket;
             _product = product;
         }
 
@@ -33,6 +34,7 @@ namespace Cereal.Controllers
             return View(product);
         }
 
+        [HttpGet]
         //Get: Product/Details
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +50,19 @@ namespace Cereal.Controllers
             }
             return View(product);
         }
+
+        //[HttpPost]
+        ////Get: Product/Details
+        //public async Task<IActionResult> Details(int id, int quantity)
+        //{
+        //    BasketItems item = new BasketItems();
+        //    item.ProductID = id;
+        //    item.Quantity = quantity;
+        //    item.UserID = ;
+        //    basket.AddItem(item)
+        //    var product = await _product.GetProduct(id);
+        //    return View(product);
+        //}
 
         //Get: Product/Create
         public IActionResult Create()
