@@ -16,6 +16,12 @@ namespace Cereal.Components
             _context = context;
         }
 
+        public async Task<IViewComponentResult>InvokeAsync()
+        {
+            var items = _context.BasketItems.ToList();
+
+            return View(items);
+        }
 
     }
 }
