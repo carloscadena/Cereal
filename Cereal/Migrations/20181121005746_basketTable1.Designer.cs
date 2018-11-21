@@ -3,14 +3,16 @@ using Cereal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cereal.Migrations
 {
     [DbContext(typeof(CerealDBContext))]
-    partial class CerealDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181121005746_basketTable1")]
+    partial class basketTable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +25,8 @@ namespace Cereal.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BasketID");
 
                     b.Property<int>("ProductID");
 

@@ -32,7 +32,7 @@ namespace Cereal.Models.Services
 
         public async Task<BasketItems> GetBasketItem(int? id)
         {
-            return await _context.BasketItems.FirstOrDefaultAsync(BasketItems => BasketItems.BasketID == id);
+            return await _context.BasketItems.FirstOrDefaultAsync(BasketItems => BasketItems.ID == id);
         }
 
         public async Task<IEnumerable<BasketItems>> GetBasketItems()

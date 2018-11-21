@@ -7,7 +7,7 @@ namespace Cereal.Models
 {
     public class BasketItems
     {
-        public int BasketID { get; set; }
+        public int ID { get; set; }
 
         public int ProductID { get; set; }
 
