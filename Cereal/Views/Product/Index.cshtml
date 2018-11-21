@@ -9,6 +9,8 @@
 
 <h1>hello</h1>
 
+@await Component.InvokeAsync("Basket");
+
 @foreach (var item in Model)
 {
 <div class="product-box">
