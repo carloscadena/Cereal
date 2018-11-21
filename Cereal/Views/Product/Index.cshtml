@@ -17,6 +17,7 @@
     <p>SKU: @Html.DisplayFor(modelItem => item.Sku)</p>
     <p>@Html.DisplayFor(modelItem => item.Description)</p>
     <img class="cereal-img" src="@Html.DisplayFor(modelItem => item.Image)" />
+    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a>
 </div>
     
 }

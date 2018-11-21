@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model Cereal.Models.Product
+
+<h2>ProductDetails</h2>
+
+<div class="product-box">
+    <h2>@Html.DisplayFor(modelItem => Model.Name)</h2>
+    <p>$@Html.DisplayFor(modelItem => Model.Price)</p>
+    <p>SKU: @Html.DisplayFor(modelItem => Model.Sku)</p>
+    <p>@Html.DisplayFor(modelItem => Model.Description)</p>
+    <img class="cereal-img" src="@Html.DisplayFor(modelItem => Model.Image)" />
+    <form method="post">
+        <label for="quantity"></label>
+        <input asp-route-data="quantity" type="number" name="quantity" />
+        <button type="submit">Add To Cart</button>
+    </form>
+
+</div>
+
