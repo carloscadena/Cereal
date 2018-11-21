@@ -14,6 +14,5 @@ namespace Cereal.Models
         public int Quantity { get; set; }
 
         public string UserID { get; set; }
-
     }
 }

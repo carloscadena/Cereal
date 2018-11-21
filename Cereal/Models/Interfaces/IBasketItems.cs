@@ -9,7 +9,7 @@ namespace Cereal.Models.Interfaces
     {
         Task AddItem(BasketItems basketItems);
 
-        Task<BasketItems> GetBasketItems(int? id);
+        Task<BasketItems> GetBasketItem(int? id);
 
         Task<IEnumerable<BasketItems>> GetBasketItems();
 
