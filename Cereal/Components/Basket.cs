@@ -1,5 +1,6 @@
 ﻿using Cereal.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Cereal.Components
 
         public async Task<IViewComponentResult>InvokeAsync()
         {
-            var items = _context.BasketItems.ToList();
+            var items = await _context.BasketItems.ToListAsync();
 
             return View(items);
         }
