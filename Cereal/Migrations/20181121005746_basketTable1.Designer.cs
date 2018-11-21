@@ -3,14 +3,16 @@ using Cereal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cereal.Migrations
 {
     [DbContext(typeof(CerealDBContext))]
-    partial class CerealDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181121005746_basketTable1")]
+    partial class basketTable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +26,8 @@ namespace Cereal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BasketID");
+
                     b.Property<int>("ProductID");
 
                     b.Property<int>("Quantity");
@@ -31,8 +35,6 @@ namespace Cereal.Migrations
                     b.Property<string>("UserID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ProductID");
 
                     b.ToTable("BasketItems");
                 });
@@ -71,14 +73,6 @@ namespace Cereal.Migrations
                         new { ProductID = 9, Description = "Cheerios has been a family favorite for years. Its wholesome goodness is perfect for toddlers to adults and everyone in between. Made from whole grain oats, and without artificial flavors or colors, they’re naturally low in fat and cholesterol free. These wholesome little “o’s” have only one gram of sugar!", Image = "/assets/cheerios.jpg", Name = "Cheerios", Price = 2.99m, Sku = "87654" },
                         new { ProductID = 10, Description = "Golden Grahams Cereal When you crave a crunch, grab some sweet graham goodness! Now You're Golden.", Image = "/assets/golden_grahams.jpg", Name = "Golden Grahams", Price = 2.99m, Sku = "76543" }
                     );
-                });
-
-            modelBuilder.Entity("Cereal.Models.BasketItems", b =>
-                {
-                    b.HasOne("Cereal.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

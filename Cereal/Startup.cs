@@ -46,6 +46,7 @@ namespace Cereal
             );
 
             services.AddTransient<IProduct,ProductService>();
+            services.AddTransient<IBasketItems, BasketItemsService>();
 
             // services.AddDbContext<ApplicationDbContext>(options =>
             //options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])

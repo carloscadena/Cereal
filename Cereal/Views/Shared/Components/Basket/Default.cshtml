@@ -1,0 +1,9 @@
+﻿@model List<Cereal.Models.BasketItems>
+
+@foreach (var item in Model)
+{
+    <p>@item.Product.Name</p>
+    <p>@item.Quantity</p>
+    <p>@item.Product.Price</p>
+} 
+
