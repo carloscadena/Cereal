@@ -85,8 +85,7 @@ namespace Cereal.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                }
-                
+                }           
             }
             return View();
         }
