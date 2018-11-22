@@ -21,11 +21,11 @@ namespace Cereal.Components
             _userManager = userManager;
         }
 
-        public async Task<IViewComponentResult>InvokeAsync()
+        public async Task<IViewComponentResult>InvokeAsync(string b)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var ID = user.Id;
-            var basket = _context.BasketItems.Where(u => u.UserID == ID).ToList();
+            var basket = _context.BasketItems.Where(u => u.UserID == ID).Include(z => z.Product).ToList();
 
             return View(basket);
         }

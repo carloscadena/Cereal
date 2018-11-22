@@ -26,6 +26,7 @@ namespace Cereal.Controllers
         }
 
         //Get: Products
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _product.GetProducts());
@@ -57,9 +58,10 @@ namespace Cereal.Controllers
         }
 
         [HttpPost]
-        //Get: Product/Details
+        //
         public async Task<IActionResult> Details(int id, int quantity)
         {
+            //if (_basket.GetBasketItem()) 
             BasketItems item = new BasketItems();
             item.ProductID = id;
             item.Quantity = quantity;

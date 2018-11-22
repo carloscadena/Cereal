@@ -35,6 +35,7 @@ namespace Cereal.Models.Services
             return await _context.BasketItems.FirstOrDefaultAsync(BasketItems => BasketItems.ID == id);
         }
 
+        //get product, if exists, update
         public async Task<IEnumerable<BasketItems>> GetBasketItems()
         {
             return await _context.BasketItems.ToListAsync();
