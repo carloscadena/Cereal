@@ -23,6 +23,7 @@
                 <a asp-controller="Home" asp-action="Index">Home</a>
                 <a asp-controller="Product" asp-action="Index">Products</a>
                 <a asp-controller="Employee" asp-action="Index">Employee Discounts</a>
+                <a asp-controller="Basket" asp-action="Index">Shopping Cart</a>
 
                 <div class="account_access">
                     <p class="personal-greeting">Hello, @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</p>
