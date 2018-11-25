@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Cereal.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h4>Shopping Cart:</h4>
+    @await Component.InvokeAsync("Basket");
+}
