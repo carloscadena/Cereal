@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cereal.Models;
 using Cereal.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,15 +13,20 @@ namespace Cereal.Controllers
 {    
     public class ProductController : Controller
     {
+        private readonly IBasketItems _basket;
         private readonly IProduct _product;
+        private UserManager<ApplicationUser> _userManager;
 
-        public ProductController(IProduct product)
+        public ProductController(IProduct product, IBasketItems basket, UserManager<ApplicationUser> userManager)
         {
-            //_basket = basket;
+            _basket = basket;
             _product = product;
+            _userManager = userManager;
+            
         }
 
         //Get: Products
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _product.GetProducts());
@@ -51,18 +57,20 @@ namespace Cereal.Controllers
             return View(product);
         }
 
-        //[HttpPost]
-        ////Get: Product/Details
-        //public async Task<IActionResult> Details(int id, int quantity)
-        //{
-        //    BasketItems item = new BasketItems();
-        //    item.ProductID = id;
-        //    item.Quantity = quantity;
-        //    item.UserID = ;
-        //    basket.AddItem(item)
-        //    var product = await _product.GetProduct(id);
-        //    return View(product);
-        //}
+        [HttpPost]
+        //
+        public async Task<IActionResult> Details(int id, int quantity)
+        {
+            //if (_basket.GetBasketItem()) 
+            BasketItems item = new BasketItems();
+            item.ProductID = id;
+            item.Quantity = quantity;
+            var userID = _userManager.GetUserId(User);
+            item.UserID = userID;
+            await _basket.AddItem(item);
+            var product = await _product.GetProduct(id);
+            return View(product);
+        }
 
         //Get: Product/Create
         public IActionResult Create()
