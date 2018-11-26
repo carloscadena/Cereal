@@ -11,5 +11,17 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <h4>Shopping Cart:</h4>
-    @await Component.InvokeAsync("Basket");
+    @model IEnumerable<Cereal.Models.ViewModels.BasketViewModel>
+
+    <div class="deck">
+        @foreach (var item in Model)
+        {
+        <div class="card">
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+            <p>@Html.DisplayFor(modelItem => item.Price)</p>
+            <p>@Html.DisplayFor(modelItem => item.Quantity)</p>
+
+        </div>
+        }
+    </div>
 }
