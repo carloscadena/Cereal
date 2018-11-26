@@ -83,19 +83,6 @@ a {
     margin-bottom: 0px;
 }
 
-.product-box {
-    border: 2px solid black;
-    width: 80%;
-    background-color: rgba(44, 47, 51, 0.5);
-    margin: 0 auto;
-}
-
-.product-box * {
-    padding: 0 15px 10px 15px;
-    color: white;
-    font-size: 1.3em;
-}
-
 .logout-button {
     background: none !important;
     color: #f2f2f2;
@@ -108,4 +95,36 @@ a {
 .logout-button:hover {
     background-color: #ddd;
     color: black;
+}
+
+.deck {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.card {
+    width: 250px;
+    height: auto;
+    margin: 2% auto;
+    background-color: rgba(0,128,128, .7);
+    border-radius: 10px;
+    box-shadow: 5px 10px lightgrey;
+}
+
+.details-card {
+    width: 500px;
+    height: auto;
+    margin: 2% auto;
+    background-color: rgba(0,128,128, .7);
+    border-radius: 10px;
+    box-shadow: 5px 10px lightgrey;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background-color: rgba(0,128,128, .7);
 }

@@ -61,13 +61,24 @@ namespace Cereal.Controllers
         //
         public async Task<IActionResult> Details(int id, int quantity)
         {
-            //if (_basket.GetBasketItem()) 
-            BasketItems item = new BasketItems();
-            item.ProductID = id;
-            item.Quantity = quantity;
             var userID = _userManager.GetUserId(User);
-            item.UserID = userID;
-            await _basket.AddItem(item);
+
+            BasketItems item = await _basket.GetBasketItem(id, userID);
+            if( item != null )
+            {
+                item.Quantity += quantity;
+                await _basket.UpdateBasketItems(item);
+            }
+            else
+            {
+                item = new BasketItems();
+                item.ProductID = id;
+                item.Quantity = quantity;
+                item.UserID = userID;
+
+                await _basket.AddItem(item);
+
+            }
             var product = await _product.GetProduct(id);
             return View(product);
         }
@@ -156,7 +167,7 @@ namespace Cereal.Controllers
             return View(product);
         }
 
-        // POST: Hotels/Delete
+        // POST: Product/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
