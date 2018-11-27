@@ -8,6 +8,7 @@ using Cereal.Models;
 using Cereal.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal.Controllers
@@ -17,6 +18,7 @@ namespace Cereal.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private ApplicationDbContext _context;
+        private IEmailSender _email;
 
         /// <summary>
         /// controls the registration and login of users
@@ -24,11 +26,12 @@ namespace Cereal.Controllers
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
         /// <param name="context"></param>
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, IEmailSender email)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _email = email;
         }
 
         [HttpGet]
@@ -87,7 +90,8 @@ namespace Cereal.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
                 }           
             }
-            return View();
+            await _email.SendEmailAsync(rvm.Email, "Registration Confirmed!", "<p>Get ready to eat some cereal</p>");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

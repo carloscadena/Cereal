@@ -15,6 +15,7 @@ using Cereal.Models.Interfaces;
 using Cereal.Models.Services;
 using Cereal.Models.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Cereal
 {
@@ -64,6 +65,7 @@ namespace Cereal
             });
 
             services.AddScoped<IAuthorizationHandler, EmployeeEmailRequirement>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
         }
 
