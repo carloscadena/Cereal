@@ -14,7 +14,11 @@
     @model IEnumerable<Cereal.Models.ViewModels.BasketViewModel>
 
 
-    <form method="post" asp-controller="Checkout" asp-action="Receipt"><button class="checkout-button" type="submit">Checkout</button></form>
+    <form>
+        <input type="hidden" name="email" value="@SignInManager.UserManager.GetUserName(User)"/>
+        <button asp-controller="Checkout" asp-action="Receipt" class="checkout-button" type="submit">Checkout</button>
+    </form>
+    
     decimal total = 0;
     <table>
         <tr>

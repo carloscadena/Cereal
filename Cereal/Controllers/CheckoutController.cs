@@ -8,6 +8,7 @@ using Cereal.Models.Interfaces;
 using Cereal.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,20 +19,18 @@ namespace Cereal.Controllers
     {
         private readonly IBasketItems _basket;
         private readonly IProduct _product;
-        private UserManager<ApplicationUser> _userManager;
         private CerealDBContext _context;
-        private EmailSender _email;
+        private IEmailSender _email;
 
-        public CheckoutController(IProduct product, IBasketItems basket, UserManager<ApplicationUser> userManager, CerealDBContext context)
+        public CheckoutController(IProduct product, IBasketItems basket, CerealDBContext context, IEmailSender email)
         {
             _basket = basket;
             _product = product;
-            _userManager = userManager;
             _context = context;
-
+            _email = email;
         }
 
-        public async Task<IActionResult> Receipt()
+        public async Task<IActionResult> Receipt(string email)
         {
             var baskets = await _basket.GetBasketItems();
             List<Product> products = new List<Product>();
@@ -60,21 +59,23 @@ namespace Cereal.Controllers
                 BasketList.Add(BasketVM);
             }
 
-            //string subject = "Order Confirmation";
+            string subject = "Order Confirmation";
 
-            //string msg = "<table><th>Product</th><th>Quantity</th><th>Price</th>";
+            string msg = "<table><th>Product</th><th>Quantity</th><th>Price</th>";
 
-            //decimal total = 0m;
+            decimal total = 0m;
 
-            //foreach (var item in BasketList)
-            //{
-            //    var product = await _product.GetProduct(item.ProductID);
-            //    total += (product.Price * item.Quantity);
-            //    msg += $"<tr><td>{product.Name}</td><td>{item.Quantity}</td><td>${product.Price}</td></tr>";
-            //    await _email.SendEmailAsync(RegisterViewModel., subject, msg);
+            foreach (var item in BasketList)
+            {
+                var product = await _product.GetProduct(item.ProductID);
+                total += (product.Price * item.Quantity);
+                msg += $"<tr><td>{product.Name}</td><td>{item.Quantity}</td><td>${product.Price}</td></tr>";
+            }
+            msg += $"<tr><td>Total:</td><td> </td><td>${total}</td></tr>";
+            await _email.SendEmailAsync(email, subject, msg);
 
 
-                return View(BasketList);
+            return View(BasketList);
 
         }
     }
