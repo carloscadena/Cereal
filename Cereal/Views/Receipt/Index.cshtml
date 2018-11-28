@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Cereal.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h2>Purchase Receipt</h2>
+    @model IEnumerable<Cereal.Models.ViewModels.BasketViewModel>
+
+    decimal total = 0;
+    <table>
+        <tr>
+            <th>Cereal</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            total += item.Price * item.Quantity;
+            <tr class="cereal-row">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+            </tr>
+        }
+        <tr class="last-row">
+            <th>Total:</th>
+            <td> </td>
+            <td> </td>
+            <td>@total</td>
+        </tr>
+
+    </table>
+}
