@@ -1,9 +1,11 @@
 ﻿body {
     font-family: 'Roboto', sans-serif;
-    background-image: url("/assets/fruit_loops2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
     text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+    border-left: 10px solid #0BD5BE;
+    border-right: 10px solid #0BD5BE;
+    border-bottom: 10px solid #0BD5BE;
 }
 
 h1 {
@@ -25,6 +27,8 @@ h1 {
     float: left;
     color: #f2f2f2;
     text-align: center;
+    height: 50px;
+    line-height: 50px;
 }
 
 .navigation {
@@ -127,4 +131,22 @@ a {
 .card:hover {
     transform: scale(1.05);
     background-color: rgba(0,128,128, .7);
+}
+
+table {
+    width: 750px;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    background-color: rgba(0,128,128, .7);
+    border-radius: 10px;
+    box-shadow: 5px 10px lightgrey;
+}
+
+td {
+    padding: 5px;
+}
+
+.cereal-row {
+    border-top: 1px solid black;
 }
