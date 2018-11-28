@@ -20,6 +20,7 @@ namespace Cereal.Controllers
         private readonly IProduct _product;
         private UserManager<ApplicationUser> _userManager;
         private CerealDBContext _context;
+        private EmailSender _email;
 
         public CheckoutController(IProduct product, IBasketItems basket, UserManager<ApplicationUser> userManager, CerealDBContext context)
         {
@@ -58,7 +59,22 @@ namespace Cereal.Controllers
                 BasketVM.ID = item.BasketItem.ID;
                 BasketList.Add(BasketVM);
             }
-            return View(BasketList);
+
+            //string subject = "Order Confirmation";
+
+            //string msg = "<table><th>Product</th><th>Quantity</th><th>Price</th>";
+
+            //decimal total = 0m;
+
+            //foreach (var item in BasketList)
+            //{
+            //    var product = await _product.GetProduct(item.ProductID);
+            //    total += (product.Price * item.Quantity);
+            //    msg += $"<tr><td>{product.Name}</td><td>{item.Quantity}</td><td>${product.Price}</td></tr>";
+            //    await _email.SendEmailAsync(RegisterViewModel., subject, msg);
+
+
+                return View(BasketList);
 
         }
     }
