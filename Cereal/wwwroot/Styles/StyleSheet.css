@@ -147,6 +147,11 @@ td {
     padding: 5px;
 }
 
-.cereal-row {
+.last-row {
+    padding: 8px;
     border-top: 1px solid black;
+}
+
+.checkout-button {
+    margin: 10px;
 }
