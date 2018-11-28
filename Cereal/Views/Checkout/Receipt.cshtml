@@ -17,21 +17,20 @@
     <table>
         <tr>
             <th>Cereal</th>
-            <th>Price</th>
             <th>Quantity</th>
-            <th>Remove</th>
+            <th>Price</th>
         </tr>
         @foreach (var item in Model)
         {
             total += item.Price * item.Quantity;
-            <tr class="cereal-row">
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Price)</td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+        </tr>
         }
         <tr class="last-row">
             <th>Total:</th>
-            <td> </td>
             <td> </td>
             <td>@total</td>
         </tr>
