@@ -10,18 +10,41 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <h4>Shopping Cart:</h4>
+    <h2>Shopping Cart:</h2>
     @model IEnumerable<Cereal.Models.ViewModels.BasketViewModel>
-
-    <div class="deck">
+    
+    decimal total = 0; 
+    <table>
+        <tr>
+            <th>Cereal</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+        </tr>
         @foreach (var item in Model)
         {
-        <div class="card">
-            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-            <p>@Html.DisplayFor(modelItem => item.Price)</p>
-            <p>@Html.DisplayFor(modelItem => item.Quantity)</p>
-
-        </div>
+            total += item.Price * item.Quantity;
+            <tr class="cereal-row">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>
+                    <form method="post" asp-controller="Basket" asp-action="Index" asp-route-id="@item.ProductID">
+                        <label for="quantity"></label>
+                        <input asp-route-data="quantity" type="number" name="quantity" value="@Html.DisplayFor(modelItem => item.Quantity)" />
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-controller="Basket" asp-action="Delete" asp-route-id="@item.ID"><button type="submit">X</button></form>
+                </td>
+            </tr>
         }
-    </div>
+        <tr class="last-row">
+            <th>Total:</th>
+            <td> </td>
+            <td> </td>
+            <td>@total</td>
+        </tr>
+
+    </table>
 }

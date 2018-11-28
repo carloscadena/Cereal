@@ -60,28 +60,42 @@ namespace Cereal.Controllers
 
         [HttpPost]
         //
-        public async Task<IActionResult> Details(int id, int quantity)
+        public async Task<IActionResult> Index(int id, int quantity)
         {
             var userID = _userManager.GetUserId(User);
 
             BasketItems item = await _basket.GetBasketItem(id, userID);
-            if (item != null)
-            {
-                item.Quantity += quantity;
-                await _basket.UpdateBasketItems(item);
-            }
-            else
-            {
-                item = new BasketItems();
-                item.ProductID = id;
-                item.Quantity = quantity;
-                item.UserID = userID;
+            
+            item.Quantity = quantity;
+            await _basket.UpdateBasketItems(item);
 
-                await _basket.AddItem(item);
+            var baskets = await _basket.GetBasketItems();
+            List<Product> products = new List<Product>();
+            foreach (var prod in baskets)
+            {
+                var product = await _product.GetProduct(prod.ProductID);
+                products.Add(product);
 
             }
-            var product = await _product.GetProduct(id);
-            return View(product);
+            var combo = baskets.Zip(products, (x, y) => new { BasketItem = x, Product = y });
+
+
+            List<BasketViewModel> BasketList = new List<BasketViewModel>();
+            foreach (var prod in combo)
+            {
+                BasketViewModel BasketVM = new BasketViewModel();
+                BasketVM.Sku = prod.Product.Sku;
+                BasketVM.Name = prod.Product.Name;
+                BasketVM.Price = prod.Product.Price;
+                BasketVM.Description = prod.Product.Description;
+                BasketVM.Image = prod.Product.Image;
+                BasketVM.ProductID = prod.Product.ProductID;
+
+                BasketVM.Quantity = prod.BasketItem.Quantity;
+                BasketVM.ID = prod.BasketItem.ID;
+                BasketList.Add(BasketVM);
+            }
+            return View(BasketList);
         }
 
         //// GET: Product/Delete
