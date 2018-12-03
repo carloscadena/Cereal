@@ -38,23 +38,23 @@ namespace Cereal
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddDbContext<CerealDBContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
-            );
-
             //services.AddDbContext<CerealDBContext>(options =>
-            //options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+            //options.UseSqlServer(Configuration["ConnectionStrings:ProductionDb"])
             //);
+
+            services.AddDbContext<CerealDBContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+            );
 
             services.AddTransient<IProduct,ProductService>();
             services.AddTransient<IBasketItems, BasketItemsService>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
-           );
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+            // services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseSqlServer(Configuration["ConnectionStrings:ProductionIdentityConnection"])
             //);
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"])
+            );
 
             //implementation for policies
             services.AddAuthorization(options =>
