@@ -1,6 +1,9 @@
+using Cereal.Data;
 using Cereal.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using Xunit;
+using System.Linq;
 
 namespace TestsCereal
 {
@@ -161,6 +164,131 @@ namespace TestsCereal
 
         //    Assert.Equal("cadena", user.LastName);
         //}
+
+
+        [Fact]
+        public async void CreateBasketItemTest()
+        {
+            DbContextOptions<CerealDBContext> options =
+                new DbContextOptionsBuilder<CerealDBContext>()
+                .UseInMemoryDatabase("Baskets")
+                .Options;
+
+            using (CerealDBContext context = new CerealDBContext(options))
+            {
+                //CREATE
+                BasketItems basket = new BasketItems();
+                basket.ID = 1;
+                basket.ProductID = 2;
+                basket.Quantity = 2;
+                basket.UserID = "userid";
+                basket.Purchased = false;
+
+                context.BasketItems.Add(basket);
+
+                await context.SaveChangesAsync();
+           
+                Assert.Equal(1, basket.ID);
+
+            }
+        }
+
+        [Fact]
+        public async void ReadBasketItemTest()
+        {
+            DbContextOptions<CerealDBContext> options =
+                new DbContextOptionsBuilder<CerealDBContext>()
+                .UseInMemoryDatabase("Baskets")
+                .Options;
+
+            using (CerealDBContext context = new CerealDBContext(options))
+            {
+                //CREATE
+                BasketItems basket = new BasketItems();
+                basket.ID = 2;
+                basket.ProductID = 2;
+                basket.Quantity = 2;
+                basket.UserID = "userid";
+                basket.Purchased = false;
+
+                context.BasketItems.Add(basket);
+
+                await context.SaveChangesAsync();
+
+                //READ
+                var myBasket = await context.BasketItems.FirstOrDefaultAsync(r => r.ID == basket.ID);
+
+                Assert.Equal(2, myBasket.ID);
+            }
+        }
+
+        [Fact]
+        public async void UpdateBasketItemTest()
+        {
+            DbContextOptions<CerealDBContext> options =
+                new DbContextOptionsBuilder<CerealDBContext>()
+                .UseInMemoryDatabase("Baskets")
+                .Options;
+
+            using (CerealDBContext context = new CerealDBContext(options))
+            {
+                //CREATE
+                BasketItems basket = new BasketItems();
+                basket.ID = 3;
+                basket.ProductID = 2;
+                basket.Quantity = 2;
+                basket.UserID = "userid";
+                basket.Purchased = false;
+
+                context.BasketItems.Add(basket);
+
+                await context.SaveChangesAsync();
+
+                //READ
+                var myBasket = await context.BasketItems.FirstOrDefaultAsync(r => r.ID == basket.ID);
+
+                //UPDATE
+                myBasket.Quantity = 4;
+                context.Update(myBasket);
+                context.SaveChanges();
+
+                var newBasket = await context.BasketItems.FirstOrDefaultAsync(r => r.ID == myBasket.ID);
+                Assert.Equal(4, newBasket.Quantity);
+            }
+        }
+
+        [Fact]
+        public async void DeleteBasketItemTest()
+        {
+            DbContextOptions<CerealDBContext> options =
+                new DbContextOptionsBuilder<CerealDBContext>()
+                .UseInMemoryDatabase("Baskets")
+                .Options;
+
+            using (CerealDBContext context = new CerealDBContext(options))
+            {
+                //CREATE
+                BasketItems basket = new BasketItems();
+                basket.ID = 4;
+                basket.ProductID = 2;
+                basket.Quantity = 2;
+                basket.UserID = "userid";
+                basket.Purchased = false;
+
+                context.BasketItems.Add(basket);
+
+                await context.SaveChangesAsync();
+
+                //READ
+                var myBasket = await context.BasketItems.FirstOrDefaultAsync(r => r.ID == basket.ID);
+
+                //DELETE
+                context.BasketItems.Remove(myBasket);
+                context.SaveChanges();
+
+                var deletedBasketItems = await context.BasketItems.FirstOrDefaultAsync(r => r.ID == myBasket.ID);
+                Assert.True(deletedBasketItems == null);
+            }
+        }
     }
 }
-
