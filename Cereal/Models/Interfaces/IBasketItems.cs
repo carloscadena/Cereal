@@ -13,7 +13,7 @@ namespace Cereal.Models.Interfaces
 
         Task<BasketItems> GetBasketItem(int productID, string userID);
 
-        Task<IEnumerable<BasketItems>> GetBasketItems();
+        Task<IEnumerable<BasketItems>> GetBasketItems(string id);
 
         Task UpdateBasketItems(BasketItems basketItems);
 

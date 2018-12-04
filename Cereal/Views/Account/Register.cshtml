@@ -15,10 +15,6 @@
     <input asp-for="LastName" />
     <span asp-validation-for="LastName"></span>
 
-    <label asp-for="EmployeeNumber"></label>
-    <input asp-for="EmployeeNumber" />
-    <span asp-validation-for="EmployeeNumber"></span>
-
     <label asp-for="Email"></label>
     <input asp-for="Email" />
     <span asp-validation-for="Email"></span>
@@ -31,7 +27,7 @@
     <input asp-for="ConfirmPassword" />
     <span asp-validation-for="ConfirmPassword"></span>
 
-    <button type="submit">Register</button>
+    <button asp-controller="Account" asp-action="Register" type="submit">Register</button>
 
 </form>
 
