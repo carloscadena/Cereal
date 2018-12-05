@@ -114,9 +114,16 @@ namespace Cereal.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
 
+                ApplicationUser user = await _userManager.FindByEmailAsync(lvm.Email);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return Redirect("/admin/adminportal/");
+                    }
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {

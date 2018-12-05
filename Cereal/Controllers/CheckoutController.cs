@@ -38,10 +38,8 @@ namespace Cereal.Controllers
             {
                 var product = await _product.GetProduct(item.ProductID);
                 products.Add(product);
-
             }
             var combo = baskets.Zip(products, (x, y) => new { BasketItem = x, Product = y });
-
 
             List<BasketViewModel> BasketList = new List<BasketViewModel>();
             foreach (var item in combo)
@@ -56,6 +54,8 @@ namespace Cereal.Controllers
 
                 BasketVM.Quantity = item.BasketItem.Quantity;
                 BasketVM.ID = item.BasketItem.ID;
+                BasketVM.Purchased = item.BasketItem.Purchased;
+                BasketVM.Date = item.BasketItem.Date;
                 BasketList.Add(BasketVM);
             }
 
@@ -74,9 +74,7 @@ namespace Cereal.Controllers
             msg += $"<tr><td>Total:</td><td> </td><td>${total}</td></tr>";
             await _email.SendEmailAsync(email, subject, msg);
 
-
             return View(BasketList);
-
         }
     }
 }

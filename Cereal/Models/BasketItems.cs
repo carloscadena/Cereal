@@ -17,6 +17,8 @@ namespace Cereal.Models
 
         public bool Purchased { get; set; }
 
-        public Product Product { get; set;  }
+        public DateTime Date { get; set; }
+
+        public Product Product { get; set; }
     }
 }
