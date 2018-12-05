@@ -78,7 +78,7 @@ namespace Cereal.Controllers
                     };
 
                     //adding admin roles
-                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajelebeuf@gmail.com" || rvm.Email == "carloscadena@live.com")
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajelebeuf@gmail.com" || rvm.Email == "carloscadena@live.com" || rvm.Email == "Kcils360@live.com")
                     {
                         await _userManager.AddToRoleAsync(user, UserRoles.Admin);
                     }
