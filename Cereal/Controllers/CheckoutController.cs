@@ -21,18 +21,21 @@ namespace Cereal.Controllers
         private readonly IProduct _product;
         private CerealDBContext _context;
         private IEmailSender _email;
+        private UserManager<ApplicationUser> _userManager;
 
-        public CheckoutController(IProduct product, IBasketItems basket, CerealDBContext context, IEmailSender email)
+        public CheckoutController(IProduct product, IBasketItems basket, CerealDBContext context, IEmailSender email, UserManager<ApplicationUser> userManager)
         {
             _basket = basket;
             _product = product;
             _context = context;
             _email = email;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Receipt(string email)
         {
-            var baskets = await _basket.GetBasketItems();
+            var userid = _userManager.GetUserId(User);
+            var baskets = await _basket.GetBasketItems(userid);
             List<Product> products = new List<Product>();
             foreach (var item in baskets)
             {
@@ -76,5 +79,11 @@ namespace Cereal.Controllers
 
             return View(BasketList);
         }
+
+        //public async Task<IActionResult> Payment()
+        //{
+
+        //    await return View();
+        //}
     }
 }

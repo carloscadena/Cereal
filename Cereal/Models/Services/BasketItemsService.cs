@@ -41,9 +41,10 @@ namespace Cereal.Models.Services
         }
 
         //get product, if exists, update
-        public async Task<IEnumerable<BasketItems>> GetBasketItems()
+        public async Task<IEnumerable<BasketItems>> GetBasketItems(string id)
         {
-            return await _context.BasketItems.ToListAsync();
+            return await _context.BasketItems.Where(i => i.UserID == id && i.Purchased == false).ToListAsync(); 
+            //return await _context.BasketItems.ToListAsync();
         }
 
         public async Task UpdateBasketItems(BasketItems basketItems)
