@@ -16,9 +16,6 @@ namespace Cereal.Models.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Employee Number")]
-        public string EmployeeNumber { get; set; }
-
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -33,5 +30,17 @@ namespace Cereal.Models.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Payment Type")]
+        public Payment PaymentType { get; set; }
+    }
+
+    public enum Payment
+    {
+        AmericanExpress,
+        Discover,
+        MasterCard,
+        Visa
     }
 }

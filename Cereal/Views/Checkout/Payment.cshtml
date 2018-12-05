@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Cereal.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "_Layout";
+}
+<h2>Payment and Shipping</h2>
+@if (SignInManager.IsSignedIn(User))
+{
+    @model Cereal.Models.ViewModels.RegisterViewModel
+    <p>Shipping to:</p>
+    <p>@Html.DisplayNameFor(model => model.FirstName) @Html.DisplayNameFor(model => model.LastName)</p>
+
+    <form method="post">
+        <label asp-for="PaymentType"></label>
+        <select asp-for="PaymentType" asp-items="@Html.GetEnumSelectList(typeof(Cereal.Models.ViewModels.Payment))"></select>
+        <span asp-validation-for="PaymentType"></span>
+        <input type="hidden" name="email" value="@SignInManager.UserManager.GetUserName(User)" />
+        <button asp-controller="Checkout" asp-action="Receipt" class="checkout-button" type="submit">Complete Purchase</button>
+    </form>
+}
