@@ -36,6 +36,7 @@ namespace Cereal.Controllers
         {
             var userid = _userManager.GetUserId(User);
             var baskets = await _basket.GetBasketItems(userid);
+            
             List<Product> products = new List<Product>();
             foreach (var item in baskets)
             {
@@ -58,7 +59,7 @@ namespace Cereal.Controllers
                 BasketVM.Quantity = item.BasketItem.Quantity;
                 BasketVM.ID = item.BasketItem.ID;
                 BasketVM.Purchased = item.BasketItem.Purchased;
-                BasketVM.Date = item.BasketItem.Date;
+                BasketVM.PurchaseDate = item.BasketItem.Date;
                 BasketList.Add(BasketVM);
             }
 
@@ -77,13 +78,14 @@ namespace Cereal.Controllers
             msg += $"<tr><td>Total:</td><td> </td><td>${total}</td></tr>";
             await _email.SendEmailAsync(email, subject, msg);
 
+            await _basket.HandleBasketItems(BasketList);
+
             return View(BasketList);
         }
-
-        //public async Task<IActionResult> Payment()
-        //{
-
-        //    await return View();
-        //}
+     
+        public IActionResult Payment()
+        {
+            return View();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cereal.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,5 +19,7 @@ namespace Cereal.Models.Interfaces
         Task UpdateBasketItems(BasketItems basketItems);
 
         Task DeleteBasketItems(int id);
+
+        Task HandleBasketItems(List<BasketViewModel> BasketList);
     }
 }

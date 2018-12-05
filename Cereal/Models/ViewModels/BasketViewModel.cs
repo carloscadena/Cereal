@@ -25,7 +25,7 @@ namespace Cereal.Models.ViewModels
 
         public string Image { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         public bool Purchased { get; set; }
 
