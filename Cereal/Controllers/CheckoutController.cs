@@ -59,7 +59,7 @@ namespace Cereal.Controllers
                 BasketVM.Quantity = item.BasketItem.Quantity;
                 BasketVM.ID = item.BasketItem.ID;
                 BasketVM.Purchased = item.BasketItem.Purchased;
-                BasketVM.PurchaseDate = item.BasketItem.Date;
+                BasketVM.PurchaseDate = item.BasketItem.PurchaseDate;
                 BasketList.Add(BasketVM);
             }
 
