@@ -130,7 +130,7 @@ namespace Cereal.Controllers
         /// signs out a logged in user
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Logout()
         {

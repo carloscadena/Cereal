@@ -98,7 +98,7 @@ a {
 
 .logout-button:hover {
     background-color: #ddd;
-    color: black;
+    color: red;
 }
 
 .deck {
