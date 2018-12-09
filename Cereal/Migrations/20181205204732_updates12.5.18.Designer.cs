@@ -4,14 +4,16 @@ using Cereal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cereal.Migrations
 {
     [DbContext(typeof(CerealDBContext))]
-    partial class CerealDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181205204732_updates12.5.18")]
+    partial class updates12518
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

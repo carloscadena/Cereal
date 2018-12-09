@@ -36,15 +36,14 @@ namespace Cereal.Controllers
         {
             var userid = _userManager.GetUserId(User);
             var baskets = await _basket.GetBasketItems(userid);
+            
             List<Product> products = new List<Product>();
             foreach (var item in baskets)
             {
                 var product = await _product.GetProduct(item.ProductID);
                 products.Add(product);
-
             }
             var combo = baskets.Zip(products, (x, y) => new { BasketItem = x, Product = y });
-
 
             List<BasketViewModel> BasketList = new List<BasketViewModel>();
             foreach (var item in combo)
@@ -59,6 +58,8 @@ namespace Cereal.Controllers
 
                 BasketVM.Quantity = item.BasketItem.Quantity;
                 BasketVM.ID = item.BasketItem.ID;
+                BasketVM.Purchased = item.BasketItem.Purchased;
+                BasketVM.PurchaseDate = item.BasketItem.PurchaseDate;
                 BasketList.Add(BasketVM);
             }
 
@@ -77,15 +78,14 @@ namespace Cereal.Controllers
             msg += $"<tr><td>Total:</td><td> </td><td>${total}</td></tr>";
             await _email.SendEmailAsync(email, subject, msg);
 
+            await _basket.HandleBasketItems(BasketList);
 
             return View(BasketList);
-
         }
-
-        //public async Task<IActionResult> Payment()
-        //{
-
-        //    await return View();
-        //}
+     
+        public IActionResult Payment()
+        {
+            return View();
+        }
     }
 }
