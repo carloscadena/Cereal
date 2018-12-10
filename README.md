@@ -16,3 +16,6 @@ https://mikescerealshack.azurewebsites.net/
 ## Cereal Database Schema
 Our database is currently composed of two tables, Product and BasketItems. ProductID is a primary key on the product table and a foreign key on the basket items table. We also have access to product properties through the navigational property on the basket items table.
 ![schema_image](/Cereal_DB_Schema.png)
+
+## Contributors
+Allisa LeBeuf and Carlos Cadena
