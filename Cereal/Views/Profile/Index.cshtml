@@ -1,6 +1,11 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using Cereal.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
     ViewData["Title"] = "Index";
     Layout = "_Layout";
 }
-<h2>Your Profile</h2>
+<h2>Your Name: @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</h2>
+<h2>Your Email: @User.Identity.Name</h2>
 

@@ -155,3 +155,9 @@ td {
 .checkout-button {
     margin: 10px;
 }
+
+.login-form * {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+}
