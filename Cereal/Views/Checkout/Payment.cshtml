@@ -10,8 +10,6 @@
 @if (SignInManager.IsSignedIn(User))
 {
     @model Cereal.Models.ViewModels.RegisterViewModel
-    <p>Shipping to:</p>
-    <p>@Html.DisplayNameFor(model => model.FirstName) @Html.DisplayNameFor(model => model.LastName)</p>
 
     <form method="post">
         <label asp-for="PaymentType"></label>
