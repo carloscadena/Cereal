@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Cereal.Models.Interfaces;
+using Cereal.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal.Models.Services
 {
@@ -41,14 +43,30 @@ namespace Cereal.Models.Services
         }
 
         //get product, if exists, update
-        public async Task<IEnumerable<BasketItems>> GetBasketItems()
+        public async Task<IEnumerable<BasketItems>> GetBasketItems(string id)
         {
-            return await _context.BasketItems.ToListAsync();
+            return await _context.BasketItems.Where(i => i.UserID == id && i.Purchased == false).ToListAsync(); 
+            //return await _context.BasketItems.ToListAsync();
         }
 
         public async Task UpdateBasketItems(BasketItems basketItems)
         {
             _context.BasketItems.Update(basketItems);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// method to change basket list items to true when purchased and adds date to "order"
+        /// </summary>
+        /// <param name="BasketList"></param>
+        [HttpPost]
+        public async Task HandleBasketItems(List<BasketViewModel> baskets)
+        {
+            foreach (var item in baskets)
+            {
+                item.Purchased = true;
+                item.PurchaseDate = DateTime.Now;
+            }
             await _context.SaveChangesAsync();
         }
     }

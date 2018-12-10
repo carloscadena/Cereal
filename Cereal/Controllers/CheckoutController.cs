@@ -21,27 +21,29 @@ namespace Cereal.Controllers
         private readonly IProduct _product;
         private CerealDBContext _context;
         private IEmailSender _email;
+        private UserManager<ApplicationUser> _userManager;
 
-        public CheckoutController(IProduct product, IBasketItems basket, CerealDBContext context, IEmailSender email)
+        public CheckoutController(IProduct product, IBasketItems basket, CerealDBContext context, IEmailSender email, UserManager<ApplicationUser> userManager)
         {
             _basket = basket;
             _product = product;
             _context = context;
             _email = email;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Receipt(string email)
         {
-            var baskets = await _basket.GetBasketItems();
+            var userid = _userManager.GetUserId(User);
+            var baskets = await _basket.GetBasketItems(userid);
+            
             List<Product> products = new List<Product>();
             foreach (var item in baskets)
             {
                 var product = await _product.GetProduct(item.ProductID);
                 products.Add(product);
-
             }
             var combo = baskets.Zip(products, (x, y) => new { BasketItem = x, Product = y });
-
 
             List<BasketViewModel> BasketList = new List<BasketViewModel>();
             foreach (var item in combo)
@@ -56,6 +58,8 @@ namespace Cereal.Controllers
 
                 BasketVM.Quantity = item.BasketItem.Quantity;
                 BasketVM.ID = item.BasketItem.ID;
+                BasketVM.Purchased = item.BasketItem.Purchased;
+                BasketVM.PurchaseDate = item.BasketItem.PurchaseDate;
                 BasketList.Add(BasketVM);
             }
 
@@ -74,9 +78,14 @@ namespace Cereal.Controllers
             msg += $"<tr><td>Total:</td><td> </td><td>${total}</td></tr>";
             await _email.SendEmailAsync(email, subject, msg);
 
+            await _basket.HandleBasketItems(BasketList);
 
             return View(BasketList);
-
+        }
+     
+        public IActionResult Payment()
+        {
+            return View();
         }
     }
 }

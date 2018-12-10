@@ -16,7 +16,7 @@
 
     <form>
         <input type="hidden" name="email" value="@SignInManager.UserManager.GetUserName(User)"/>
-        <button asp-controller="Checkout" asp-action="Receipt" class="checkout-button" type="submit">Checkout</button>
+        <button asp-controller="Checkout" asp-action="Payment" class="checkout-button" type="submit">Checkout</button>
     </form>
     
     decimal total = 0;

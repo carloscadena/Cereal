@@ -1,0 +1,25 @@
+﻿@page
+@model Cereal.Pages.Admin.AdminPortalModel
+@using Microsoft.AspNetCore.Identity
+@using Cereal.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<h3>Admins only</h3>
+
+@*@model IEnumerable<Cereal.Models.Product>*@
+
+@*<div class="deck">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <a asp-action="Details" asp-route-id="@item.ProductID"><h2>@Html.DisplayFor(modelItem => item.Name)</h2></a>
+            <a asp-action="Details" asp-route-id="@item.ProductID"><img class="cereal-img" src="@Html.DisplayFor(modelItem => item.Image)" /></a>
+        </div>
+    }
+</div>*@

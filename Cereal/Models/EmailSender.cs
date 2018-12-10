@@ -23,12 +23,11 @@ namespace Cereal.Models
             var client = new SendGridClient(Configuration["Cereal_SendGrid_API"]);
 
             
-            var from = new EmailAddress("carloscadena@live.com", "Carlos");
+            var from = new EmailAddress("carloscadena@live.com", "Cereal");
             var to = new EmailAddress(email);
             var emailSubject = subject;
-            var plainTextContent = "Welcome";
             var htmlContent = htmlMessage;
-            var msg = MailHelper.CreateSingleEmail(from, to, emailSubject, plainTextContent, htmlContent);
+            var msg = MailHelper.CreateSingleEmail(from, to, emailSubject, null, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }
     }

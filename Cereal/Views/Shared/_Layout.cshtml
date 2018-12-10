@@ -26,10 +26,8 @@
                 <a asp-controller="Basket" asp-action="Index">Shopping Cart</a>
 
                 <div class="account_access">
-                    <p class="personal-greeting">Hello, @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</p>
-                    <form asp-action="Logout" asp-controller="Account" method="post">
-                        <button type="submit" class="logout-button">Logout</button>
-                    </form>
+                    <a asp-controller="Profile" asp-action="Index">Hello, @User.Claims.FirstOrDefault(name => name.Type == "FullName").Value</a>
+                    <a asp-controller="Account" asp-action="Logout">Logout</a>
                 </div>
             </div>
             <div class="header">

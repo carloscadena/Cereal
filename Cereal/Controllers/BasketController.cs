@@ -23,12 +23,12 @@ namespace Cereal.Controllers
             _basket = basket;
             _product = product;
             _userManager = userManager;
-
         }
 
         public async Task<IActionResult> Index()
         {
-            var baskets = await _basket.GetBasketItems();
+            var userid = _userManager.GetUserId(User);
+            var baskets = await _basket.GetBasketItems(userid);
             List<Product> products = new List<Product>();
             foreach (var item in baskets)
             {
@@ -69,7 +69,7 @@ namespace Cereal.Controllers
             item.Quantity = quantity;
             await _basket.UpdateBasketItems(item);
 
-            var baskets = await _basket.GetBasketItems();
+            var baskets = await _basket.GetBasketItems(userID);
             List<Product> products = new List<Product>();
             foreach (var prod in baskets)
             {

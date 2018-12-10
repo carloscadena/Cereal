@@ -78,7 +78,7 @@ namespace Cereal.Controllers
                     };
 
                     //adding admin roles
-                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajelebeuf@gmail.com" || rvm.Email == "carloscadena@live.com")
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "ajlebeuf@gmail.com" || rvm.Email == "carloscadena@live.com" || rvm.Email == "Kcils360@live.com")
                     {
                         await _userManager.AddToRoleAsync(user, UserRoles.Admin);
                     }
@@ -88,9 +88,10 @@ namespace Cereal.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    await _email.SendEmailAsync(rvm.Email, "Registration Confirmed!", "<p>Get ready to eat some cereal</p>");
                 }           
             }
-            await _email.SendEmailAsync(rvm.Email, "Registration Confirmed!", "<p>Get ready to eat some cereal</p>");
             return RedirectToAction("Index", "Home");
         }
 
@@ -114,23 +115,30 @@ namespace Cereal.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
 
+                ApplicationUser user = await _userManager.FindByEmailAsync(lvm.Email);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return Redirect("/admin/adminportal/");
+                    }
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "You are wrong");
                 }
             }
-            return View(lvm);
+            return View();
         }
 
         /// <summary>
         /// signs out a logged in user
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
